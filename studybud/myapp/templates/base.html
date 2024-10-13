@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{% block title2 %}My Website Header{% endblock %}</h1>
+        <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+
+            <!-- <li><a href="/about">About</a></li> -->
+            <li><a href="/myapp/about">About</a></li>
+            <!-- The href="/about" refers to the URL path, not the Django URL name.
+            This means you are directly hardcoding the URL path /about into the link. -->
+
+
+            <li><a href="{% url 'contactus' %}">Contact</a></li>
+            <!-- ithann nallath nn  -->
+
+
+            <li><a href="/contact/">For Urls</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Child templates will override this section -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>My Website Footer © 2024</p>
+    </footer>
+</body>
+</html>

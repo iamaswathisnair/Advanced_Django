@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+*.sqlite3
+/media
+/staticfiles
+/venv
+myenv/
+.env
+.DS_Store
+.vscode/
+*.pot
+*.pyc
+*.pyo
+*.db
+
+# IDEs and editors
+.idea/
+.vscode/
+.project
+.classpath
+
+# Ignore virtual environment
+/venv/
+/myenv/
+ 

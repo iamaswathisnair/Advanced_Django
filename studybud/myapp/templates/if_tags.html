@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tags</title>
+</head>
+<body>
+  {% if name %} 
+  <h2>{{name}}</h2> 
+  {% endif %} 
+
+
+  {% if name and age %} 
+  <h2>{{name}} and {{age}}</h2> 
+  {% else %} 
+  <h2>sorry</h2>
+  {% endif %} 
+</body>
+</html>

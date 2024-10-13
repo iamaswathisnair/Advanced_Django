@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aswathi</title>
+</head>
+
+<body>
+{% include 'the_include_tag.html' %}
+
+    {% for i in fruits %}
+        {% if i|upper == "APPLE" %}
+        <!-- uppercase value of i -->
+            {{i}}
+        {% else %}
+            nthngg
+        {% endif %}
+    {% empty %}
+        No fruits available.
+    {% endfor %}
+
+<!-- another one  -->
+    <ul>
+    {% for fruit in fruits %}
+        <li>{{ fruit }}</li>
+    {% empty %}
+        <li>No fruits available.</li>
+    {% endfor %}
+</ul>
+<!-- another one over -->
+
+
+{% for fruit in fruits %}
+<p>
+    Iteration: {{ forloop.counter }}<br>
+    Iteration (0-based): {{ forloop.counter0 }}<br>
+    Reverse Counter: {{ forloop.revcounter }}<br>
+    Reverse Counter (0-based): {{ forloop.revcounter0 }}<br>
+    Is First Iteration?: {{ forloop.first }}<br>
+    Is Last Iteration?: {{ forloop.last }}<br>
+    Fruit Name: {{ fruit }}
+</p>
+<hr>
+{% endfor %}
+
+</body>
+</html>
