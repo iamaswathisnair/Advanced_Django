@@ -32,6 +32,8 @@ urlpatterns = [
  path('contact/',views.contact,name='contactus'),
  path('for_urls/',views.for_urls,name='for_urls'),
  path('include_tag/',views.include_tag,name='include_tag'),
+ path('contact_view/',views.contact_view,name='contact_view'),
+ 
  
  ]
 

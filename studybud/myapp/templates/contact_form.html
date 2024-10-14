@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Contact Us</h1> 
+
+<!-- Default Form Rendering ({{ form }}) -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form}}  <!-- This automatically renders the form fields with paragraph tags -->
+        <button type="submit">Submit</button>
+    </form><br><br>
+
+<!-- Rendering Form Fields with {{ form.as_p }}    -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- This automatically renders the form fields with paragraph tags -->
+        <button type="submit">Submit</button>
+    </form><br><br>
+
+
+<!-- Rendering Form Fields with {{ form.as_ul }} -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}  <!-- This automatically renders the form fields with paragraph tags -->
+        <button type="submit">Submit</button>
+    </form><br><br>
+
+<!-- Rendering Form Fields with {{ form.as_table }} -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_table }}  <!-- This automatically renders the form fields with paragraph tags -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

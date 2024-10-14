@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime , date 
+from .forms import ContactForm 
 
 # Create your views here.
 
@@ -38,4 +39,6 @@ def for_urls(request):
 def include_tag(request):
     return render (request , 'the_include_tag.html') 
 
-
+def contact_view(request):
+    form = ContactForm()
+    return render (request , 'contact_form.html',{'form':form})
