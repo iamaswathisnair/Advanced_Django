@@ -33,6 +33,10 @@ urlpatterns = [
  path('for_urls/',views.for_urls,name='for_urls'),
  path('include_tag/',views.include_tag,name='include_tag'),
  path('contact_view/',views.contact_view,name='contact_view'),
+ path('Ordering_form_fields_view/',views.Ordering_form_fields_view,name='Ordering_form_fields_view'),
+ path('DemowidgetForm_view/',views.DemowidgetForm_view,name='DemowidgetForm_view'),
+ 
+ 
  
  
  ]

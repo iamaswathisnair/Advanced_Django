@@ -1,0 +1,31 @@
+<!-- Why You Need a Template File?
+The form class generates the form fields, but to display them on a webpage, you need:
+
+1. A template (e.g., styled_form.html) to organize these fields inside a full HTML structure.
+2. CSRF token for security in Django forms.
+3. A submit button to send form data to the server. -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form</title>
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Styled Form</h1>
+        <!-- Start Form -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
