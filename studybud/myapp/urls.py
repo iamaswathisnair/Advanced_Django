@@ -35,6 +35,8 @@ urlpatterns = [
  path('contact_view/',views.contact_view,name='contact_view'),
  path('Ordering_form_fields_view/',views.Ordering_form_fields_view,name='Ordering_form_fields_view'),
  path('DemowidgetForm_view/',views.DemowidgetForm_view,name='DemowidgetForm_view'),
+ path('usermodelform/',views.usermodelform,name='usermodelform'),
+ 
  
  
  

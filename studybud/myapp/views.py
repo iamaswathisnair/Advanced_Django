@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime , date 
-from .forms import ContactForm , Ordering_form_fields_form 
+from .forms import ContactForm , Ordering_form_fields_form ,Userform
 from  .form_widgets import DemowidgetForm
 
 # Create your views here.
@@ -47,6 +47,12 @@ def contact_view(request):
 def Ordering_form_fields_view(request):
     form = Ordering_form_fields_form()
     return render (request , 'Ordering_form_fields.html',{'form':form})
+
+#modelformview meta
+
+def usermodelform(request):
+    fm=Userform()
+    return render (request ,'user_modelform.html' , {'form': fm})
 
 
 # widget form view 

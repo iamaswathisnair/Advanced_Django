@@ -75,3 +75,8 @@ class DemowidgetForm(forms.Form):
         label="Upload your file",
         widget=forms.ClearableFileInput(attrs={'class': 'form-control', 'accept': 'image/*,application/pdf'})
     )
+    
+#forms.FileField: Handles file uploads.
+# widget=forms.ClearableFileInput: Renders the file input field with an optional "clear" checkbox for replacing files.
+# accept='image/*,application/pdf': Restricts the types of files to images and PDFs only.
+# enctype="multipart/form-data" is required in the <form> tag for file uploads.

@@ -1,4 +1,7 @@
+#                          Django's ModelForm or regular form class
+
 from django import forms
+from . models import User
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, label="Your Name")
@@ -12,6 +15,23 @@ class Ordering_form_fields_form(forms.Form):
 
     # Reordering fields using the field_order attribute
     field_order = ['email', 'name', 'message']
+    
+
+# (ModelForm with a Meta Class) --- ModelForm that interacts with a Django model (User)
+# Meta class to link the form to the model. a Meta class is a special class inside your main class that contains configuration options for that class(main class).
+# hese options include things like specifying the database table name, default ordering, and the verbose name.
+class Userform(forms.ModelForm): 
+    class Meta:
+        
+        model = User
+        # fields = ['name' , 'email']
+        exclude = ['name'] , ('name' , )
+        # fields = "__all__"
+        
+        
+
+
+
 
 
 
