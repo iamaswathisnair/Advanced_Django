@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Load Form</title>
+</head>
+<body>
+    <h1>Submit Your Details Teacher</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Render form fields -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

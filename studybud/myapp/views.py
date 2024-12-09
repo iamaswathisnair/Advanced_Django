@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime , date 
 from .forms import ContactForm , Ordering_form_fields_form ,Userform
-from  .form_widgets import DemowidgetForm
-
+from .form_widgets import DemowidgetForm
+from .modelform_inheritance import EmployeeForm ,Teacherform
 # Create your views here.
 
 def learn_django(request):
@@ -48,11 +48,33 @@ def Ordering_form_fields_view(request):
     form = Ordering_form_fields_form()
     return render (request , 'Ordering_form_fields.html',{'form':form})
 
-#modelformview meta
+
+                        #modelformview meta
 
 def usermodelform(request):
     fm=Userform()
     return render (request ,'user_modelform.html' , {'form': fm})
+
+                        #model inheritance view 
+                        
+def teacher_model_inheritance(request):
+    if request.method =="POST":
+        formm =Teacherform(request.POST)
+        if formm.is_valid:
+            formm.save()
+    else:
+        formm =Teacherform()
+    return render(request, "Tchr_modelinheritance.html",{'form':formm})
+
+def emp_model_inheritence(request):
+    if request.method == "POST":
+       formm = EmployeeForm(request.POST)
+       if formm.is_valid():
+           formm.save()
+    else:
+        formm = EmployeeForm()
+    return render(request, "emp_modelinheritance_form.html",{'form':formm})
+    
 
 
 # widget form view 

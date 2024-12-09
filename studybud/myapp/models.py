@@ -21,3 +21,13 @@ class User(models.Model):
     class Meta:
         db_table = 'custom_user_table'  # SQL table name
         verbose_name = "user reg"       # Admin-friendly name
+        verbose_name_plural = "my users"
+        
+        
+# for modelinheritance
+
+class NewUser(models.Model):
+    name=models.CharField(max_length=100)
+    empname =  models.CharField(max_length=100)
+    email=models.EmailField()
+    password=models.CharField(max_length=100)

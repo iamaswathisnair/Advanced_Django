@@ -36,11 +36,10 @@ urlpatterns = [
  path('Ordering_form_fields_view/',views.Ordering_form_fields_view,name='Ordering_form_fields_view'),
  path('DemowidgetForm_view/',views.DemowidgetForm_view,name='DemowidgetForm_view'),
  path('usermodelform/',views.usermodelform,name='usermodelform'),
+ path('emp_model_inheritence/',views.emp_model_inheritence,name='emp_model_inheritence'),
+ path('teacher_model_inheritance/',views.teacher_model_inheritance,name='teacher_model_inheritance'),
  
- 
- 
- 
- 
+
  ]
 
 # if settings.DEBUG:
