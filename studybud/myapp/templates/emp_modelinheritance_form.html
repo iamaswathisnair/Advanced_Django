@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Load Form</title>
+    <style>
+        .success
+        {color:blue;}
+    </style>
 </head>
 <body>
     <h1>Submit Your Details Employee</h1>
@@ -10,5 +14,11 @@
         {{ form.as_p }} <!-- Render form fields -->
         <button type="submit">Submit</button>
     </form>
+    {% if messages %}
+        {% for mess in messages %}
+        <div class="success">{{mess}}</div>
+        {% endfor %}
+    {% endif %}
+
 </body>
 </html>

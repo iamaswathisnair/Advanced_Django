@@ -4,6 +4,7 @@ from datetime import datetime , date
 from .forms import ContactForm , Ordering_form_fields_form ,Userform
 from .form_widgets import DemowidgetForm
 from .modelform_inheritance import EmployeeForm ,Teacherform
+from django.contrib import messages
 # Create your views here.
 
 def learn_django(request):
@@ -71,6 +72,7 @@ def emp_model_inheritence(request):
        formm = EmployeeForm(request.POST)
        if formm.is_valid():
            formm.save()
+           messages.success(request, 'Your action was successful!')
     else:
         formm = EmployeeForm()
     return render(request, "emp_modelinheritance_form.html",{'form':formm})
