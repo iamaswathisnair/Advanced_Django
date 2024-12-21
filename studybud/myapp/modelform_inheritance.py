@@ -8,6 +8,7 @@ class Userform(forms.ModelForm):
         model = NewUser
         fields ="__all__"
     
+    
 # 2. Create Child ModelForms
 
 class Teacherform(Userform):

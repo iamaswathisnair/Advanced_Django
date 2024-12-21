@@ -6,6 +6,7 @@ from .form_widgets import DemowidgetForm
 from .modelform_inheritance import EmployeeForm ,Teacherform
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from . Inheriting_UserCreationForm import CustomUserCreationForm
 
 
 # Create your views here.
@@ -96,7 +97,22 @@ def user_reg(request):
      formm =UserCreationForm(request.POST)
      if formm.is_valid():
          formm.save()
-         print("success")
     else:
         formm = UserCreationForm()
     return render(request ,'user_reg.html' , {'fm':formm})
+
+#inheriting UserCreation form to add more fields 
+
+def register(request):
+    if request.method == 'POST':
+       form = CustomUserCreationForm(request.POST)
+       if form.is_valid():
+           form.save()
+           messages.success(request, 'Your action was successful!')
+
+    else:
+      form = CustomUserCreationForm()
+    return render(request ,'register_usercreationform_inheriting.html' , {'form':form})
+
+           
+           

@@ -40,6 +40,8 @@ urlpatterns = [
  path('emp_model_inheritence/',views.emp_model_inheritence,name='emp_model_inheritence'),
  path('teacher_model_inheritance/',views.teacher_model_inheritance,name='teacher_model_inheritance'),
  path('user_reg/',views.user_reg,name='user_reg'),
+ path('register/',views.register,name='register'),
+ 
  
  ]
 
