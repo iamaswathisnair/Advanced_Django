@@ -1,4 +1,4 @@
-#                          Django's ModelForm or regular form class
+                            #Django's ModelForm or regular form class
 
 from django import forms
 from . models import User

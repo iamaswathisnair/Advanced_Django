@@ -5,6 +5,9 @@ from .forms import ContactForm , Ordering_form_fields_form ,Userform
 from .form_widgets import DemowidgetForm
 from .modelform_inheritance import EmployeeForm ,Teacherform
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+
+
 # Create your views here.
 
 def learn_django(request):
@@ -49,6 +52,12 @@ def Ordering_form_fields_view(request):
     form = Ordering_form_fields_form()
     return render (request , 'Ordering_form_fields.html',{'form':form})
 
+# widget form view 
+
+def DemowidgetForm_view(request):
+    form = DemowidgetForm()
+    return render(request , 'widgetform_loading.html',{'form':form})
+
 
                         #modelformview meta
 
@@ -61,11 +70,12 @@ def usermodelform(request):
 def teacher_model_inheritance(request):
     if request.method =="POST":
         formm =Teacherform(request.POST)
-        if formm.is_valid:
+        if formm.is_valid():
             formm.save()
     else:
         formm =Teacherform()
     return render(request, "Tchr_modelinheritance.html",{'form':formm})
+
 
 def emp_model_inheritence(request):
     if request.method == "POST":
@@ -75,17 +85,18 @@ def emp_model_inheritence(request):
            messages.success(request, 'Your action was successful!')
     else:
         formm = EmployeeForm()
-    return render(request, "emp_modelinheritance_form.html",{'form':formm})
+    return render(request, "emp_modelinheritance_form.html", {'form':formm})
     
 
 
-# widget form view 
+#reg using django built-in usercreationform
 
-def DemowidgetForm_view(request):
-    form = DemowidgetForm()
-    return render(request , 'widgetform_loading.html',{'form':form})
-
-
-
-
-    
+def user_reg(request):
+    if request.method == 'POST':
+     formm =UserCreationForm(request.POST)
+     if formm.is_valid():
+         formm.save()
+         print("success")
+    else:
+        formm = UserCreationForm()
+    return render(request ,'user_reg.html' , {'fm':formm})

@@ -2,6 +2,44 @@
 <html>
 <head>
     <title>Load Form</title>
+    <style>
+        /* Inline CSS for page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h1>Submit Your Details Teacher</h1>
@@ -10,5 +48,24 @@
         {{ form.as_p }} <!-- Render form fields -->
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Inline JavaScript -->
+    <!-- <script>
+        // JS executed after the DOM has fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const submitButton = document.querySelector("button");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent actual form submission for testing
+                alert("Form Submitted Successfully!");
+                console.log("Form values: ", form.elements);
+            });
+
+            submitButton.addEventListener("click", function () {
+                console.log("Submit button clicked!");
+            });
+        });
+    </script> -->
 </body>
 </html>

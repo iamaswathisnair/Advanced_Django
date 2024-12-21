@@ -17,6 +17,7 @@ Including another URLconf
 
 # from django.conf import settings
 # from django.conf.urls.static import static
+
 from django.urls import path
 from . import views 
 
@@ -38,8 +39,8 @@ urlpatterns = [
  path('usermodelform/',views.usermodelform,name='usermodelform'),
  path('emp_model_inheritence/',views.emp_model_inheritence,name='emp_model_inheritence'),
  path('teacher_model_inheritance/',views.teacher_model_inheritance,name='teacher_model_inheritance'),
+ path('user_reg/',views.user_reg,name='user_reg'),
  
-
  ]
 
 # if settings.DEBUG:
