@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+       <!-- Display messages -->
+    {% if messages %}
+       <ul>
+           {% for message in messages %}
+               <li>{{ message }}</li>
+           {% endfor %}
+       </ul>
+   {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <!-- {{ fm.as_p }} -->
+        {% for i in form %}
+         {{i.label_tag}} {{i}} {{i.errors|striptags}} <br><br>
+        {% endfor %}
+        <button type="submit" >Login</button>
+    </form>
+    <a href ="/user_reg">reg</a>
+</body>
+</html>

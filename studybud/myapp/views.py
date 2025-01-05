@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , HttpResponseRedirect
 from django.http import HttpResponse
 from datetime import datetime , date 
 from .forms import ContactForm , Ordering_form_fields_form ,Userform
@@ -7,11 +7,13 @@ from .modelform_inheritance import EmployeeForm ,Teacherform
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from . Inheriting_UserCreationForm import CustomUserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate,login,logout
 
 
 # Create your views here.
 
-def learn_django(request):
+def learn_django(request):  #request: Represents the HTTP request sent by the client (e.g., a browser).
     d=datetime.now()  #datetime.now() for the full date and time.
     d1=date.today() # from the datetime module for just the current date.
     return render (request , 'index.html' , {'name':"achu","da":d,"da2":d1}) 
@@ -101,6 +103,7 @@ def user_reg(request):
         formm = UserCreationForm()
     return render(request ,'user_reg.html' , {'fm':formm})
 
+
 #inheriting UserCreation form to add more fields 
 
 def register(request):
@@ -115,4 +118,39 @@ def register(request):
     return render(request ,'register_usercreationform_inheriting.html' , {'form':form})
 
            
+# login using AuthenticationForm 
+def loginAuthenticationForm(request):
+    if request.method == 'POST':   # 1.If the user is submitting the login form
+    
+        fm = AuthenticationForm (request=request, data =request.POST) # 2.Process the form data
+
+           #################################
            
+        if fm.is_valid():    # 3.Check if the form is valid
+            uname = fm.cleaned_data['username']
+            upass = fm.cleaned_data['password']
+        #################################
+             
+            user = authenticate(username=uname,password=upass) #checks that username and password against the database. 
+                                        # - If a user with the given credentials exists and is active, it returns the user object.
+            
+            if user is not None: # If the user exists and credentials are correct
+                login(request , user)  # Log the user in
+                return HttpResponseRedirect('/myapp/contact/')
+       
+            else:
+                messages.error(request, "Invalid username or password.")  # Error message for wrong credentials
+            #################################
+        else:
+            messages.error(request, "Invalid form data. Please check your input.")  # Form validation error
+            return render(request, 'login-AuthenticationForm.html', {'form': fm})
+        #####################################
+        
+     # If we reach this point, it means login failed. Re-render the form with error messages.  
+     # If the request method is not POST (e.g., GET), render the login form  
+    else:
+        fm = AuthenticationForm()
+        return render (request , 'login-AuthenticationForm.html',{'form':fm})
+        
+        
+        

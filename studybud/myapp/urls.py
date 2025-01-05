@@ -41,7 +41,7 @@ urlpatterns = [
  path('teacher_model_inheritance/',views.teacher_model_inheritance,name='teacher_model_inheritance'),
  path('user_reg/',views.user_reg,name='user_reg'),
  path('register/',views.register,name='register'),
- 
+ path('loginAuthenticationForm/',views.loginAuthenticationForm,name='loginAuthenticationForm'),
  
  ]
 
