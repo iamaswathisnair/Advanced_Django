@@ -43,6 +43,10 @@ urlpatterns = [
  path('register/',views.register,name='register'),
  path('loginAuthenticationForm/',views.loginAuthenticationForm,name='loginAuthenticationForm'),
  
+ 
+ path('type1/',views.type1,name='type1'),
+ 
+ 
  ]
 
 # if settings.DEBUG:

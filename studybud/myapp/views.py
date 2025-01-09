@@ -1,4 +1,5 @@
-from django.shortcuts import render , HttpResponseRedirect
+# onn vere temlate same fileds as in usercraetinform , 2 kore filedsss vechitt 
+from django.shortcuts import render , HttpResponseRedirect , redirect
 from django.http import HttpResponse
 from datetime import datetime , date 
 from .forms import ContactForm , Ordering_form_fields_form ,Userform
@@ -9,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from . Inheriting_UserCreationForm import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout
+# {% url 'view_name' %}
 
 
 # Create your views here.
@@ -92,18 +94,31 @@ def emp_model_inheritence(request):
     
 
 
+"""----------------------------------------------------"""
+
 #reg using django built-in usercreationform
 
 def user_reg(request):
-    if request.method == 'POST':
-     formm =UserCreationForm(request.POST)
+    if request.method == 'POST':  # Check if the request method is POST, which indicates that the form has been submitted.
+     formm =UserCreationForm(request.POST) #Passing request.POST to the form tells Django: --- "Hey, here's the data the user submitted. Please check if it's valid."
      if formm.is_valid():
          formm.save()
     else:
         formm = UserCreationForm()
     return render(request ,'user_reg.html' , {'fm':formm})
 
-
+        # try:
+        #     user = User.objects.create_user(username=username, password=password1)
+        #     user.save()
+        #     messages.success(request, "Registration successful! You can now log in.")
+        #     return redirect('login')  # Redirect to login after successful registration
+        # except Exception as e:
+        #     messages.error(request, f"Error: {e}")
+        #     return redirect('register')  # Return to register page if something goes wrong
+        
+        
+        
+        
 #inheriting UserCreation form to add more fields 
 
 def register(request):
@@ -112,6 +127,7 @@ def register(request):
        if form.is_valid():
            form.save()
            messages.success(request, 'Your action was successful!')
+           return render (request , 'login-AuthenticationForm.html')
 
     else:
       form = CustomUserCreationForm()
@@ -136,7 +152,11 @@ def loginAuthenticationForm(request):
             
             if user is not None: # If the user exists and credentials are correct
                 login(request , user)  # Log the user in
-                return HttpResponseRedirect('/myapp/contact/')
+                # return HttpResponseRedirect('/myapp/learn_django/' , {'username': uname})
+                return render (request , 'learn_django.html' , {'username': uname})
+            
+            #redirect() is more flexible because it can take either a URL string, view name, or even model. return redirect('contact')
+            #You could say, “Take the user to a page called 'contact'” (instead of typing /myapp/contact/ directly).
        
             else:
                 messages.error(request, "Invalid username or password.")  # Error message for wrong credentials
@@ -154,3 +174,19 @@ def loginAuthenticationForm(request):
         
         
         
+
+
+
+# diff types of reg and login
+
+def type1(request):
+    if request.method =='POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = CustomUserCreationForm()
+    return render (request, 'type1reg.html', {'form': form})
+
+
