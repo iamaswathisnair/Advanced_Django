@@ -11,20 +11,48 @@
    <body>
       <div class="bg-img">
          <div class="content">
+
+            {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li style="color: red;">{{ message }}</li>
+               {% endfor %}
+            </ul>
+            {% endif %}
+
             <header>Reg Form</header>
             <form action="{% url 'type1' %}" method="post">
                 {% csrf_token %}
-               <div class="field">
+                <div class="field">
                   <span class="fa fa-user"></span>
-                  <!-- <input type="text" required placeholder="Email or Phone"> -->
-                  {{ form.email_or_phone }}
-               </div>
-               <div class="field space">
+                  <input type="text" name="email_or_phone" required placeholder="Email or Phone" value="{{ form.email_or_phone.value|default:'' }}">
+                 
+                  {% if form.email_or_phone.errors %}
+                    <div style="color: red;">{{ form.email_or_phone.errors }}</div>
+                  {% endif %}
+
+
+                </div>
+                <div class="field space">
                   <span class="fa fa-lock"></span>
-                  <!-- <input type="password" class="pass-key" required placeholder="Password"> -->
-                   {{ form.password }}
+                  <input type="password" name="password1" class="pass-key" required placeholder="Password1">
+                  
+                  
+                  {% if form.password1.errors %}
+                    <div style="color: red;">{{ form.password1.errors }}</div>
+                  {% endif %}
+
+                  
                   <span class="show">SHOW</span>
                </div>
+               <div class="field space">
+                <span class="fa fa-lock"></span>
+                <input type="password" name="password2" class="pass-key" required placeholder="Password2">
+                {% if form.password2.errors %}
+                    <div style="color: red;">{{ form.password2.errors }}</div>
+                {% endif %}
+                <span class="show">SHOW</span>
+             </div>
                <div class="pass">
                   <a href="#">Forgot Password?</a>
                </div>
@@ -50,18 +78,20 @@
          </div>
       </div>
       <script>
-         const pass_field = document.querySelector('.pass-key');
-         const showBtn = document.querySelector('.show');
-         showBtn.addEventListener('click', function(){
-          if(pass_field.type === "password"){
-            pass_field.type = "text";
-            showBtn.textContent = "HIDE";
-            showBtn.style.color = "#3498db";
-          }else{
-            pass_field.type = "password";
-            showBtn.textContent = "SHOW";
-            showBtn.style.color = "#222";
-          }
+         const pass_fields = document.querySelectorAll('.pass-key');
+         const showBtns = document.querySelectorAll('.show');
+         showBtns.forEach((showBtn, index) => {
+            showBtn.addEventListener('click', function(){
+               if(pass_fields[index].type === "password"){
+                  pass_fields[index].type = "text";
+                  showBtn.textContent = "HIDE";
+                  showBtn.style.color = "#3498db";
+               }else{
+                  pass_fields[index].type = "password";
+                  showBtn.textContent = "SHOW";
+                  showBtn.style.color = "#222";
+               }
+            });
          });
       </script>
    </body>

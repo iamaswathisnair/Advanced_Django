@@ -22,7 +22,9 @@ from django.urls import path , include
 #  make sure you are including the URLs from your app
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myapp/', include('myapp.urls')), # include the app's urls / # Include URLs from `myapp`
+    path('', include('myapp.urls')), # include the app's urls / # Include URLs from `myapp`
+    
+    # path('myapp/', include('myapp.urls')), # include the app's urls / # Include URLs from `myapp`
     # path('coursee/', include('course(app_name).urls')),
     
 ]

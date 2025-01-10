@@ -173,20 +173,30 @@ def loginAuthenticationForm(request):
         return render (request , 'login-AuthenticationForm.html',{'form':fm})
         
         
-        
-
-
-
 # diff types of reg and login
 
+# def type1(request):
+#     if request.method == 'POST':
+#         form = CustomUserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()  # Save the user
+#             return redirect('/')  # Redirect to the homepage or login page
+#     else:
+#         form = CustomUserCreationForm()
+#     return render(request, 'type1reg.html', {'form': form})
+
+
 def type1(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            messages.success(request, "User registered successfully!")
+            return redirect('learn_django')  # Redirect to home or login page
+        else:
+            # Debugging: Print form errors in the console
+            print("Form Errors:", form.errors)
+            messages.error(request, "achuuu Form submission failed. Please correct the errors.")
     else:
         form = CustomUserCreationForm()
-    return render (request, 'type1reg.html', {'form': form})
-
-
+    return render(request, 'type1reg.html', {'form': form})

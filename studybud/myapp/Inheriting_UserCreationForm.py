@@ -27,49 +27,29 @@ class CustomUserCreationForm(UserCreationForm):
     
 #type1 reg with email/phone and pass
 class CustomUserCreationForm(UserCreationForm):
+    # Modifying the built-in form to accept email or phone instead of username.
     email_or_phone = forms.CharField(
-        max_length=100, 
-        required=True, 
-        label="", 
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Email or Phone', 
-            'class': 'field'
-        })
-    )
-    password = forms.CharField(
-        required=True, 
-        label="", 
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Password', 
-            'class': 'pass-key'
-        })
+        max_length=100,
+        required=True,
+        label="Email or Phone",
+        widget=forms.TextInput(attrs={'placeholder': 'Email or Phone', 'class': 'field'})
     )
 
+    # Meta class to define which model this form corresponds to.
     class Meta:
-        model = User
-        fields = ['email_or_phone', 'password']  # Use your custom fields
+        model = User  # Default User model
+        fields = ['email_or_phone', 'password1', 'password2']  # We can still use password1 and password2 as default
 
     def clean_email_or_phone(self):
-        data = self.cleaned_data['email_or_phone']
-        if '@' in data:  # Treat as email
-            if User.objects.filter(email=data).exists():
-                raise ValidationError("Email is already taken!")
-        else:  # Treat as phone number
-            if User.objects.filter(username=data).exists():
-                raise ValidationError("Phone number is already registered!")
-        return data
+        # Check if email_or_phone is already taken
+        email_or_phone = self.cleaned_data['email_or_phone']
+        if User.objects.filter(username=email_or_phone).exists():
+            raise ValidationError("This email or phone number is already taken.")
+        return email_or_phone
 
     def save(self, commit=True):
-        user = User()  # Create a new user instance
-        data = self.cleaned_data['email_or_phone']
-        if '@' in data:
-            user.email = data
-        else:
-            user.username = data  # Assuming phone is stored as username
-
-        # Set the password
-        user.set_password(self.cleaned_data['password'])
-
+        user = super().save(commit=False)
+        user.username = self.cleaned_data['email_or_phone']  # Set email_or_phone as the username
         if commit:
             user.save()
         return user
