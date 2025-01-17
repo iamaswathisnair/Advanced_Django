@@ -153,7 +153,12 @@ def loginAuthenticationForm(request):
             if user is not None: # If the user exists and credentials are correct
                 login(request , user)  # Log the user in
                 # return HttpResponseRedirect('/myapp/learn_django/' , {'username': uname})
-                return render (request , 'learn_django.html' , {'username': uname})
+                context = {
+                    'username': uname,
+                    'da': datetime.now(),
+                    'da2': datetime.now().date(),
+        }
+                return render (request , 'index.html' , context)
             
             #redirect() is more flexible because it can take either a URL string, view name, or even model. return redirect('contact')
             #You could say, “Take the user to a page called 'contact'” (instead of typing /myapp/contact/ directly).
@@ -172,19 +177,15 @@ def loginAuthenticationForm(request):
         fm = AuthenticationForm()
         return render (request , 'login-AuthenticationForm.html',{'form':fm})
         
-        
-# diff types of reg and login
 
-# def type1(request):
-#     if request.method == 'POST':
-#         form = CustomUserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()  # Save the user
-#             return redirect('/')  # Redirect to the homepage or login page
-#     else:
-#         form = CustomUserCreationForm()
-#     return render(request, 'type1reg.html', {'form': form})
+#LOGOUT 
 
+def logout_view(request):
+    logout(request)    # This clears the session and logs the user out  
+    messages.success(request , "logout suceesfullyy brooo")
+    fm = AuthenticationForm()
+    return render (request , 'login-AuthenticationForm.html', {'form':fm})  
+     
 
 def type1(request):
     if request.method == 'POST':

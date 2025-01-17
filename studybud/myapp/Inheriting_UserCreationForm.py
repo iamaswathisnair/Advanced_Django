@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 # (and it already provides the basic functionality for user registration), 
 # you often need django.forms for the following reasons:
 
+
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, required=False , help_text="Optional.")  # This requires forms.CharField
     date_of_birth = forms.DateField(required=False)  # This requires forms.DateField
@@ -25,7 +26,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
     
     
-#type1 reg with email/phone and pass
+                                        #type1 reg with email/phone and pass
 class CustomUserCreationForm(UserCreationForm):
     # Modifying the built-in form to accept email or phone instead of username.
     email_or_phone = forms.CharField(
