@@ -43,6 +43,8 @@ urlpatterns = [
  path('register/',views.register,name='register'),
  path('loginAuthenticationForm/',views.loginAuthenticationForm,name='loginAuthenticationForm'),
  path('logout_view/',views.logout_view,name='logout'),
+ path('change_password/',views.change_password,name='change_password'),
+ 
  
  
  

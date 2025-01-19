@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from . Inheriting_UserCreationForm import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.forms import PasswordChangeForm  # Import the form
+from django.contrib.auth import update_session_auth_hash  # Keep the user logged in after password change
 # {% url 'view_name' %}
 
 
@@ -96,6 +98,8 @@ def emp_model_inheritence(request):
 
 """----------------------------------------------------"""
 
+
+
 #reg using django built-in usercreationform
 
 def user_reg(request):
@@ -160,9 +164,8 @@ def loginAuthenticationForm(request):
         }
                 return render (request , 'index.html' , context)
             
-            #redirect() is more flexible because it can take either a URL string, view name, or even model. return redirect('contact')
-            #You could say, “Take the user to a page called 'contact'” (instead of typing /myapp/contact/ directly).
-       
+                        #redirect() is more flexible because it can take either a URL string, view name, or even model. return redirect('contact')
+                        #You could say, “Take the user to a page called 'contact'” (instead of typing /myapp/contact/ directly).    
             else:
                 messages.error(request, "Invalid username or password.")  # Error message for wrong credentials
             #################################
@@ -179,14 +182,32 @@ def loginAuthenticationForm(request):
         
 
 #LOGOUT 
-
 def logout_view(request):
+    
     logout(request)    # This clears the session and logs the user out  
     messages.success(request , "logout suceesfullyy brooo")
     fm = AuthenticationForm()
-    return render (request , 'login-AuthenticationForm.html', {'form':fm})  
+    return redirect ('loginAuthenticationForm')  
      
 
+
+# chnage password knowing old password 
+def change_password(request):
+    if request.method =='POST':
+        fm = PasswordChangeForm( request.user , request.POST)
+        # fm = PasswordChangeForm(user =request.user , data = request.POST)
+        if fm.is_valid():
+            fm.save()
+            update_session_auth_hash(request, request.user)  # Prevent the user from being logged out
+            return redirect('learn_django')
+    else:
+        fm = PasswordChangeForm(request.user)
+        return render(request , 'change_password.html', {'form':fm})
+    
+    
+    
+    
+        
 def type1(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
