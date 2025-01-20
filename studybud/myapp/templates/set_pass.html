@@ -1,0 +1,42 @@
+<!-- <h2>Set Password</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Set Password</button>
+</form> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Password</title>
+</head>
+<body>
+    <h1>Set a New Password</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}  <!-- For form-wide errors -->  
+        <!-- It is a way to show errors that are NOT linked to any specific field in your form. These errors happen when the issue is about the form as a whole, not just one input box. -->
+        <!-- Now, if the two passwords don’t match, this is not just about one field—it’s about both fields together. The error doesn’t belong to "New Password" or "Confirm Password" alone. Instead, it’s a form-wide error.
+        This kind of error is called a non-field error, and it will be shown using {{ form.non_field_errors }} in your template. -->
+        
+        <div>
+            {{ form.new_password1.label_tag }}
+            {{ form.new_password1 }}
+            <div style="color: red;">
+                {{ form.new_password1.errors }}  <!-- Show field-specific errors -->
+            </div>
+        </div>
+
+        <div>
+            {{ form.new_password2.label_tag }}
+            {{ form.new_password2 }}
+            <div style="color: red;">
+                {{ form.new_password2.errors }}  <!-- Show field-specific errors -->
+            </div>
+        </div>
+
+        <button type="submit">Set Password</button>
+    </form>
+</body>
+</html>

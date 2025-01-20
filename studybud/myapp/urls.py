@@ -19,7 +19,8 @@ Including another URLconf
 # from django.conf.urls.static import static
 
 from django.urls import path
-from . import views 
+from . import views
+                    # from .views import set_password_view, custom_set_password_view 
 
 urlpatterns = [
     
@@ -44,6 +45,7 @@ urlpatterns = [
  path('loginAuthenticationForm/',views.loginAuthenticationForm,name='loginAuthenticationForm'),
  path('logout_view/',views.logout_view,name='logout'),
  path('change_password/',views.change_password,name='change_password'),
+ path('set-password/', views.set_password, name='set_password'),
  
  
  

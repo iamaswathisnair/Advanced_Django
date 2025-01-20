@@ -10,9 +10,12 @@ from django.contrib.auth.forms import UserCreationForm
 from . Inheriting_UserCreationForm import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.forms import PasswordChangeForm  # Import the form
+from django.contrib.auth.forms import PasswordChangeForm ,  SetPasswordForm # Import the form
 from django.contrib.auth import update_session_auth_hash  # Keep the user logged in after password change
+
+
 # {% url 'view_name' %}
+#msge kazhinj ethilky aano render eethe ah pagil aan msge dispslay aava
 
 
 # Create your views here.
@@ -20,8 +23,8 @@ from django.contrib.auth import update_session_auth_hash  # Keep the user logged
 def learn_django(request):  #request: Represents the HTTP request sent by the client (e.g., a browser).
     d=datetime.now()  #datetime.now() for the full date and time.
     d1=date.today() # from the datetime module for just the current date.
-    return render (request , 'index.html' , {'name':"achu","da":d,"da2":d1}) 
-
+    return render (request , 'index.html' , {'name':"achu","da":d,"da2":d1} ) 
+    
 def learn_tags(request):
     return render (request , 'if_tags.html' , {'name':False}) 
 
@@ -106,7 +109,12 @@ def user_reg(request):
     if request.method == 'POST':  # Check if the request method is POST, which indicates that the form has been submitted.
      formm =UserCreationForm(request.POST) #Passing request.POST to the form tells Django: --- "Hey, here's the data the user submitted. Please check if it's valid."
      if formm.is_valid():
-         formm.save()
+         user = formm.save()
+         
+         request.session['username'] = user.username   # for getting name after wlcome or smthing nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+         return render(request, 'about.html', {'username': user.username})
+     
+     
     else:
         formm = UserCreationForm()
     return render(request ,'user_reg.html' , {'fm':formm})
@@ -171,7 +179,7 @@ def loginAuthenticationForm(request):
             #################################
         else:
             messages.error(request, "Invalid form data. Please check your input.")  # Form validation error
-            return render(request, 'login-AuthenticationForm.html', {'form': fm})
+            return render(request, 'login-AuthenticationForm.html', {'form': fm}) 
         #####################################
         
      # If we reach this point, it means login failed. Re-render the form with error messages.  
@@ -183,7 +191,6 @@ def loginAuthenticationForm(request):
 
 #LOGOUT 
 def logout_view(request):
-    
     logout(request)    # This clears the session and logs the user out  
     messages.success(request , "logout suceesfullyy brooo")
     fm = AuthenticationForm()
@@ -191,20 +198,41 @@ def logout_view(request):
      
 
 
-# chnage password knowing old password 
+# change password knowing old password  PasswordChangeForm
 def change_password(request):
+    if request.user.is_authenticated:   #nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        if request.method =='POST':
+            fm = PasswordChangeForm( request.user , request.POST)
+            # fm = PasswordChangeForm(user =request.user , data = request.POST)
+            if fm.is_valid():
+                fm.save()
+                update_session_auth_hash(request, request.user)  # Prevent the user from being logged out
+                return redirect('learn_django')
+        else:
+            fm = PasswordChangeForm(request.user)
+            return render(request , 'change_password.html', {'form':fm})
+        
+    else:
+        return redirect('loginAuthenticationForm')
+        
+# change password without knowing old password  SetPasswordForm
+
+def set_password(request):
     if request.method =='POST':
-        fm = PasswordChangeForm( request.user , request.POST)
-        # fm = PasswordChangeForm(user =request.user , data = request.POST)
+        fm = SetPasswordForm(request.user ,request.POST)
         if fm.is_valid():
             fm.save()
             update_session_auth_hash(request, request.user)  # Prevent the user from being logged out
             return redirect('learn_django')
+        else:
+            # FOR Handle invalid form
+            #fm =SetPasswordForm(request.user) # Do NOT reinitialize the form, render it with errors so this fm not require
+            return render(request, 'set_pass.html', {'form': fm})
     else:
-        fm = PasswordChangeForm(request.user)
-        return render(request , 'change_password.html', {'form':fm})
-    
-    
+        fm =SetPasswordForm(request.user)
+        return render(request , 'set_pass.html', {'form':fm})
+            
+            
     
     
         
